@@ -1,11 +1,15 @@
 import React from "react";
 import logo from "../assets/newLogo.png";
 import { Link } from "react-router";
-
+import { FaHome } from "react-icons/fa";
+import { IoPeople } from "react-icons/io5";
+import { BiLogoBlogger } from "react-icons/bi";
+import { MdPermContactCalendar } from "react-icons/md";
+import { MdOutlineTrackChanges } from "react-icons/md";
 const Header = () => {
   return (
     <div>
-      <div className="navbar bg-base-100 shadow-sm max-w-11/12 mx-auto px-6">
+      <div className="navbar bg-base-100 shadow-sm max-w-11/12 mx-auto px-6 rounded-2xl">
         <div className="navbar-start">
           <div className="dropdown">
             <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -57,20 +61,35 @@ const Header = () => {
 
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal gap-4">
-            <li className="text-[#f72585] hover:text-[#ebc034]">
-              <Link to="/">Home</Link>
+            <li className="text-[#313638] hover:text-[#ebc034]">
+              <Link to="/">
+                <FaHome />
+                Home
+              </Link>
             </li>
-            <li className="text-[#f72585] hover:text-[#ebc034]">
-              <Link to="/aboutus">About Us</Link>
+            <li className="text-[#313638] hover:text-[#ebc034]">
+              <Link to="/aboutus">
+                <IoPeople />
+                About Us
+              </Link>
             </li>
-            <li className="text-[#f72585] hover:text-[#ebc034]">
-              <Link to="/blog">Blog</Link>
+            <li className="text-[#313638] hover:text-[#ebc034]">
+              <Link to="/blog">
+                <BiLogoBlogger />
+                Blog
+              </Link>
             </li>
-            <li className="text-[#f72585] hover:text-[#ebc034]">
-              <Link to="/contact">Contact</Link>
+            <li className="text-[#313638] hover:text-[#ebc034]">
+              <Link to="/contact">
+                <MdPermContactCalendar />
+                Contact
+              </Link>
             </li>
-            <li className="text-[#f72585] hover:text-[#ebc034]">
-              <Link to="/livetrack">Track Order</Link>
+            <li className="text-[#313638] hover:text-[#ebc034]">
+              <Link to="/livetrack">
+                <MdOutlineTrackChanges />
+                Track Order
+              </Link>
             </li>
           </ul>
         </div>
@@ -88,7 +107,7 @@ const Header = () => {
               />
             </div>
           </div>
-          <Link to="/login" className="btn">
+          <Link to="/auth/login" className="btn bg-[#ef233c] text-[#edf2f4]">
             Login
           </Link>
         </div>

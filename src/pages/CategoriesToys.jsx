@@ -6,16 +6,32 @@ const CategoriesToys = () => {
   const { id } = useParams();
   const data = useLoaderData();
   const [categoryToys, setCategoryToys] = useState([]);
+  const [loading, setLoading] = useState(true); // 👈 Step 1: track loading state
 
   useEffect(() => {
-    if (id) {
-      const filtered = data.filter((toy) => toy.categoryId == id);
-      setCategoryToys(filtered);
-    } else {
-      setCategoryToys(data);
-    }
+    setLoading(true); // start loading
+    setTimeout(() => {
+      // 👈 simulate async loader (since loader already fetched)
+      if (id) {
+        const filtered = data.filter((toy) => toy.categoryId == id);
+        setCategoryToys(filtered);
+      } else {
+        setCategoryToys(data);
+      }
+      setLoading(false); // end loading
+    }, 500); // slight delay for smooth spinner (optional)
   }, [data, id]);
 
+  // 👇 Step 2: show loader while waiting
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-[60vh]">
+        <span className="loading loading-bars loading-xl text-[#370617]"></span>
+      </div>
+    );
+  }
+
+  // 👇 Step 3: rest of your component
   return (
     <div className="w-11/12 mx-auto my-10">
       {id ? (
@@ -39,7 +55,7 @@ const CategoriesToys = () => {
         <span className="font-semibold text-[#2a9d8f]">
           {categoryToys.length}
         </span>{" "}
-        toy{categoryToys.length !== 1 ? "s" : ""} found
+        type{categoryToys.length !== 1 ? "s" : ""} found
       </p>
 
       {categoryToys.length === 0 ? (
@@ -69,7 +85,7 @@ const CategoriesToys = () => {
 
               <Link
                 to={`/toys/${toy.toyId}`}
-                className="absolute bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300 text-white bg-[#4062bb] hover:bg-[#42a5f5] px-4 py-2 rounded-lg font-semibold shadow-md"
+                className="absolute bottom-2 sm:bottom-5 left-1/2 -translate-x-1/2 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition duration-300 text-white bg-[#4062bb] hover:bg-[#42a5f5] active:scale-95 px-4 py-2 rounded-lg font-semibold shadow-md"
               >
                 Read More
               </Link>

@@ -5,10 +5,11 @@ import Slider from '../components/slider';
 import ShopInfo from '../components/ShopInfo';
 import LeftAside from '../components/homelayout/Topside';
 import Topside from '../components/homelayout/Topside';
+import Footer from '../components/Footer';
 
 const HomeLayout = () => {
     return (
-      <div>
+      <div className="bg-[#fafaff] min-h-screen">
         <header className="max-w-16/16 mx-auto">
           <Header></Header>
         </header>
@@ -24,6 +25,9 @@ const HomeLayout = () => {
             <section className="max-w-11/12 mx-auto my-5">
               <Outlet></Outlet>
             </section>
+          </div>
+          <div>
+            <Footer></Footer>
           </div>
         </main>
       </div>

@@ -31,7 +31,8 @@ const AllCategories = () => {
             <ShortCard
               category={{
                 name: "Show All",
-                img_url: "https://i.ibb.co/1Gr6n3dW/edu.webp",
+                img_url:
+                  "https://i.ibb.co.com/PZ0tB3Zq/all-removebg-preview.png",
               }}
             />
           </NavLink>

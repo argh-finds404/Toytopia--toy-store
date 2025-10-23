@@ -4,6 +4,10 @@ import Home from "../pages/Home";
 import CategoriesToys from "../pages/CategoriesToys";
 import ErrorPage from "../pages/error/ErrorPage";
 
+import Register from "../pages/Register";
+import AuthLayout from "../layouts/AuthLayout";
+import Login from "../pages/LoginPage/Login";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -11,7 +15,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "", 
-        element: <CategoriesToys />, 
+        element: <Home></Home>, 
         loader: () => fetch("/toys.json"),
       },
       {
@@ -23,7 +27,17 @@ const router = createBrowserRouter([
   },
   {
     path: "/auth",
-    element: <h2>Authentication Layout</h2>,
+    element:<AuthLayout></AuthLayout>,
+    children:[
+      {
+        path:"/auth/login",
+        element:<Login></Login>
+      },
+      {
+        path:"/auth/register",
+        element:<Register></Register>
+      },
+    ]
   },
   {
     path: "/toys",

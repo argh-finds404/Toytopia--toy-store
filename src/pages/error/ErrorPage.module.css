@@ -117,3 +117,20 @@
     background-position: 0 0;
   }
 }
+
+
+
+@media (max-width: 768px) {
+  .content {
+    margin: 0 20px; /* Adds space on left/right */
+    padding: 30px 25px; /* Slightly tighter but even padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .content {
+    margin: 0 15px;
+    padding: 25px 20px;
+  }
+}
+
