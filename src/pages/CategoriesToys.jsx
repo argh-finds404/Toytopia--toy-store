@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useLoaderData, useParams } from "react-router-dom";
+import { Link } from "react-router";
 
 const CategoriesToys = () => {
   const { id } = useParams();
@@ -17,7 +18,6 @@ const CategoriesToys = () => {
 
   return (
     <div className="w-11/12 mx-auto my-10">
-      {/* Conditional heading */}
       {id ? (
         <div className="flex flex-col items-center text-center mb-10">
           <p className="text-sm text-gray-500 font-semibold">Trending Now</p>
@@ -34,7 +34,6 @@ const CategoriesToys = () => {
         </div>
       )}
 
-      {/* Total count */}
       <p className="text-center text-gray-500 mb-8">
         Total{" "}
         <span className="font-semibold text-[#2a9d8f]">
@@ -43,7 +42,6 @@ const CategoriesToys = () => {
         toy{categoryToys.length !== 1 ? "s" : ""} found
       </p>
 
-      {/* Toys grid */}
       {categoryToys.length === 0 ? (
         <p className="text-center text-gray-400">
           No toys found in this category.
@@ -53,7 +51,7 @@ const CategoriesToys = () => {
           {categoryToys.map((toy) => (
             <div
               key={toy.toyId}
-              className="w-full max-w-sm bg-[#f9f8f6] rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition duration-300 hover:bg-[#fafaff] p-5"
+              className="relative w-full max-w-sm bg-[#f9f8f6] rounded-2xl shadow-md hover:shadow-2xl hover:-translate-y-1 transition duration-300 hover:bg-[#fafaff] p-5 group"
             >
               <img
                 src={toy.pictureURL}
@@ -68,6 +66,13 @@ const CategoriesToys = () => {
                   ⭐ {toy.rating}
                 </span>
               </div>
+
+              <Link
+                to={`/toys/${toy.toyId}`}
+                className="absolute bottom-5 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-300 text-white bg-[#4062bb] hover:bg-[#42a5f5] px-4 py-2 rounded-lg font-semibold shadow-md"
+              >
+                Read More
+              </Link>
             </div>
           ))}
         </div>

@@ -23,9 +23,8 @@ const Slider = () => {
           1024: { slidesPerView: 3, spaceBetween: 35 },
         }}
       >
-        {[1, 2, 3, 4, 5, 6, 7].map((num) => (
+        {[1, 2, 3, 4, 5, 6, 7,8].map((num) => (
           <SwiperSlide key={num}>
-            {/* Only padding, no background */}
             <div className="py-10 px-4">
               <div className="w-full h-[29rem] sm:h-96 md:h-[29rem] lg:h-[35rem] overflow-hidden rounded-xl">
                 <img

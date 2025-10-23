@@ -1,4 +1,3 @@
-// ✅ AllCategories.jsx
 import React from "react";
 import { NavLink } from "react-router-dom";
 import ShortCard from "./ShortCard";
@@ -18,8 +17,17 @@ const AllCategories = () => {
 
       <Marquee gradient={false} speed={50}>
         <div className="flex gap-6 px-4">
-       
-          <NavLink to="/categories" className="focus:outline-none">
+          <NavLink
+            to="/categories"
+            className={({ isActive }) =>
+              isActive &&
+              !categories.find(
+                (cat) => `/categories/${cat.id}` === window.location.pathname
+              )
+                ? "active focus:outline-none"
+                : "focus:outline-none"
+            }
+          >
             <ShortCard
               category={{
                 name: "Show All",
@@ -27,11 +35,14 @@ const AllCategories = () => {
               }}
             />
           </NavLink>
+
           {categories.map((category) => (
             <NavLink
               to={`/categories/${category.id}`}
               key={category.id}
-              className="focus:outline-none"
+              className={({ isActive }) =>
+                isActive ? "active focus:outline-none" : "focus:outline-none"
+              }
             >
               <ShortCard category={category} />
             </NavLink>
