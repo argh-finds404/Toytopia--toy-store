@@ -1,36 +1,36 @@
-import { createBrowserRouter } from "react-router";
+import { createBrowserRouter } from "react-router-dom";
 import HomeLayout from "../layouts/HomeLayout";
 import Home from "../pages/Home";
 import CategoriesToys from "../pages/CategoriesToys";
-
+import ErrorPage from "../pages/error/ErrorPage";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeLayout></HomeLayout>,
+    element: <HomeLayout />,
     children: [
       {
-        path:"",
-        element:<Home></Home>
+        path: "",
+        element: <Home />,
       },
       {
-        path:"/categories/:id",
-        element:<CategoriesToys></CategoriesToys>,
-        loader: ()=> fetch('/toys.json')
-      }
-    ]
+        path: "categories/:id?",
+        element: <CategoriesToys />,
+        loader: () => fetch("/toys.json"),
+      },
+    ],
   },
   {
     path: "/auth",
-    element: <h2>Authntication Layout</h2>,
+    element: <h2>Authentication Layout</h2>,
   },
   {
     path: "/toys",
-    element: <h2>toys Layout</h2>,
+    element: <h2>Toys Layout</h2>,
   },
   {
-    path: "/*",
-    element: <h2>Error404</h2>,
+    path: "*",
+    element: <ErrorPage></ErrorPage>,
   },
 ]);
 

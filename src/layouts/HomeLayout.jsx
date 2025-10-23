@@ -9,20 +9,19 @@ import Topside from '../components/homelayout/Topside';
 const HomeLayout = () => {
     return (
       <div>
-        <header>
+        <header className="max-w-16/16 mx-auto">
           <Header></Header>
         </header>
-        <main>
+        <main className="max-w-16/16 mx-auto">
           <section>
             <Slider></Slider>
             <ShopInfo></ShopInfo>
           </section>
           <div className="max-w-11/12 mx-auto my-5">
-            <Topside>
-            </Topside>
+            <Topside></Topside>
           </div>
-          <div className="max-w-11/12 mx-auto my-5 grid grid-cols-3">
-            <section className="main">
+          <div>
+            <section className="max-w-11/12 mx-auto my-5">
               <Outlet></Outlet>
             </section>
           </div>
