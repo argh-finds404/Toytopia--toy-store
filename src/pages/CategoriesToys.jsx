@@ -31,7 +31,7 @@ const CategoriesToys = () => {
     );
   }
 
-  // 👇 Step 3: rest of your component
+  //  Step 3: rest of your component
   return (
     <div className="w-11/12 mx-auto my-10">
       {id ? (

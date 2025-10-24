@@ -1,12 +1,29 @@
-import React from "react";
+import React, { use } from "react";
 import logo from "../assets/newLogo.png";
 import { Link } from "react-router";
+import { toast } from "react-toastify";
 import { FaHome } from "react-icons/fa";
 import { IoPeople } from "react-icons/io5";
 import { BiLogoBlogger } from "react-icons/bi";
 import { MdPermContactCalendar } from "react-icons/md";
 import { MdOutlineTrackChanges } from "react-icons/md";
+import { AuthContext } from "../Provider/AuthProvider";
+import { MdOutlineLogin } from "react-icons/md";
+import { RiLogoutBoxLine } from "react-icons/ri";
+
 const Header = () => {
+  const { user, logOut } = use(AuthContext);
+  const handleLogOut = () => {
+    logOut()
+      .then(() => {
+        toast.success("Logged out successfully 👋", {
+          theme: "colored",
+        });
+      })
+      .catch((error) => {
+        alert(error);
+      });
+  };
   return (
     <div>
       <div className="navbar bg-base-100 shadow-sm max-w-11/12 mx-auto px-6 rounded-2xl">
@@ -107,9 +124,23 @@ const Header = () => {
               />
             </div>
           </div>
-          <Link to="/auth/login" className="btn bg-[#ef233c] text-[#edf2f4]">
-            Login
-          </Link>
+          {user ? (
+            <button
+              onClick={handleLogOut}
+              className="btn bg-[#ef233c] text-[#edf2f4]"
+            >
+              <RiLogoutBoxLine />
+              LogOut
+            </button>
+          ) : (
+            <Link
+              to="/auth/login"
+              className="btn rounded-xl bg-[#1976d2] text-[#edf2f4]"
+            >
+              <MdOutlineLogin />
+              Login
+            </Link>
+          )}
         </div>
       </div>
     </div>

@@ -3,10 +3,9 @@ import HomeLayout from "../layouts/HomeLayout";
 import Home from "../pages/Home";
 import CategoriesToys from "../pages/CategoriesToys";
 import ErrorPage from "../pages/error/ErrorPage";
-
-import Register from "../pages/Register";
 import AuthLayout from "../layouts/AuthLayout";
 import Login from "../pages/LoginPage/Login";
+import Register from "../pages/Register/Register";
 
 const router = createBrowserRouter([
   {

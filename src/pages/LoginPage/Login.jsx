@@ -1,7 +1,43 @@
-import React from "react";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
 import styles from "./Login.module.css";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 const Login = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const { logIn } = useContext(AuthContext);
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    logIn(email, password)
+      .then((res) => {
+        const user = res.user;
+        // show success toast
+        toast.success("Login successful! Welcome back.", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      })
+      .catch((error) => {
+        const errorMessage = error.message;
+        toast.error(errorMessage, {
+          position: "top-center",
+          autoClose: 3000,
+        });
+      });
+
+  };
+
   return (
     <div className={styles.loginContainer}>
       <div className={styles.loginCard}>
@@ -17,7 +53,7 @@ const Login = () => {
           <p>to continue to your account</p>
         </div>
 
-        <form className={styles.loginForm} noValidate>
+        <form onSubmit={handleLogin} className={styles.loginForm} noValidate>
           <div className={styles.formGroup}>
             <div className={styles.inputWrapper}>
               <input
@@ -37,7 +73,7 @@ const Login = () => {
           <div className={styles.formGroup}>
             <div className={`${styles.inputWrapper} ${styles.passwordWrapper}`}>
               <input
-                type="password"
+                type={showPassword ? "text" : "password"} 
                 id="password"
                 name="password"
                 required
@@ -48,10 +84,13 @@ const Login = () => {
               <button
                 type="button"
                 className={styles.passwordToggle}
+                onClick={() => setShowPassword(!showPassword)}
                 aria-label="Toggle password visibility"
               >
                 <div className={styles.toggleRipple}></div>
-                <span className={styles.toggleIcon}></span>
+                <span className={styles.toggleIcon}>
+                  {showPassword ? "🙈" : "👁️"}
+                </span>
               </button>
               <div className={styles.rippleContainer}></div>
             </div>
@@ -74,9 +113,9 @@ const Login = () => {
                 Keep me signed in
               </label>
             </div>
-            <a href="#" className={styles.forgotPassword}>
+            <Link to="" className={styles.forgotPassword}>
               Forgot password?
-            </a>
+            </Link>
           </div>
 
           <button
@@ -154,9 +193,9 @@ const Login = () => {
         <div className={styles.signupLink}>
           <p>
             Don't have an account?{" "}
-            <a href="#" className={styles.createAccount}>
+            <Link to="/auth/register" className={styles.createAccount}>
               Create account
-            </a>
+            </Link>
           </p>
         </div>
 
