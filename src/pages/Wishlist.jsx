@@ -67,20 +67,18 @@ const Wishlist = () => {
     toast.success("Removed from wishlist");
   };
 
-  if (loading) {
-    return (
-      <div className="bg-[#f8f9ff] min-h-screen flex flex-col justify-between">
-        <Header />
-        <Loading />
-        <Footer />
-      </div>
-    );
-  }
-
-  if (wishlist.length === 0) {
-    return (
-      <div className="bg-[#f8f9ff] min-h-screen flex flex-col justify-between">
-        <Header />
+  return (
+    <div className="bg-[#f8f9ff] min-h-screen flex flex-col justify-between">
+      <Helmet>
+        <title>My Wishlist | ToyTopia</title>
+      </Helmet>
+      <Header />
+      
+      {loading ? (
+        <main className="max-w-6xl mx-auto my-12 px-6 w-full flex-grow flex items-center justify-center">
+           <Loading />
+        </main>
+      ) : wishlist.length === 0 ? (
         <main className="max-w-xl mx-auto my-12 px-6 bg-white border border-slate-100 rounded-3xl shadow-sm w-full">
           <EmptyState
             icon={FaRegHeart}
@@ -96,76 +94,65 @@ const Wishlist = () => {
             }
           />
         </main>
-        <Footer />
-      </div>
-    );
-  }
+      ) : (
+        <main className="max-w-6xl mx-auto my-12 px-6 w-full flex-grow">
+          <div className="flex flex-col items-center sm:items-start mb-8 text-center sm:text-left">
+            <span className="text-[10px] font-extrabold bg-toy-primary-light text-toy-primary px-3 py-1 rounded-full uppercase tracking-wider mb-2">
+              My Account
+            </span>
+            <h1 className="text-3xl font-extrabold text-slate-800">
+              My Saved <span className="text-toy-accent">Wishlist</span>
+            </h1>
+            <p className="text-xs text-slate-400 mt-1">
+              You have <span className="font-bold text-toy-accent">{wishlist.length}</span> saved item{wishlist.length !== 1 ? "s" : ""}
+            </p>
+          </div>
 
-  return (
-    <div className="bg-[#f8f9ff] min-h-screen flex flex-col justify-between">
-      <Helmet>
-        <title>My Wishlist | ToyTopia</title>
-      </Helmet>
-      <Header />
-      <main className="max-w-6xl mx-auto my-12 px-6 w-full flex-grow">
-        <div className="flex flex-col items-center sm:items-start mb-8 text-center sm:text-left">
-          <span className="text-[10px] font-extrabold bg-toy-primary-light text-toy-primary px-3 py-1 rounded-full uppercase tracking-wider mb-2">
-            My Account
-          </span>
-          <h1 className="text-3xl font-extrabold text-slate-800">
-            My Saved <span className="text-toy-accent">Wishlist</span>
-          </h1>
-          <p className="text-xs text-slate-400 mt-1">
-            You have <span className="font-bold text-toy-accent">{wishlist.length}</span> saved item{wishlist.length !== 1 ? "s" : ""}
-          </p>
-        </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
+            {wishlist.map((toy) => (
+              <div
+                key={toy.id}
+                className="relative w-full max-w-sm bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 p-5 group flex flex-col justify-between"
+              >
+                <div>
+                  <button
+                    onClick={() => removeFromWishlist(toy.id)}
+                    className="absolute top-4 right-4 z-10 bg-white/95 p-2 rounded-full shadow-md hover:scale-110 active:scale-95 transition-all text-gray-400 hover:text-toy-accent cursor-pointer border border-slate-100"
+                    title="Remove from wishlist"
+                  >
+                    <FaTrashAlt size={14} />
+                  </button>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center">
-          {wishlist.map((toy) => (
-            <div
-              key={toy.id}
-              className="relative w-full max-w-sm bg-white border border-slate-100 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-300 p-5 group flex flex-col justify-between"
-            >
-              <div>
-                {/* Remove button */}
-                <button
-                  onClick={() => removeFromWishlist(toy.id)}
-                  className="absolute top-4 right-4 z-10 bg-white/95 p-2 rounded-full shadow-md hover:scale-110 active:scale-95 transition-all text-gray-400 hover:text-toy-accent cursor-pointer border border-slate-100"
-                  title="Remove from wishlist"
-                >
-                  <FaTrashAlt size={14} />
-                </button>
+                  <div className="rounded-2xl overflow-hidden w-full h-52 mb-4 bg-slate-50">
+                    <img
+                      src={toy.pictureURL}
+                      alt={toy.toyName}
+                      className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
+                    />
+                  </div>
 
-                {/* Image */}
-                <div className="rounded-2xl overflow-hidden w-full h-52 mb-4 bg-slate-50">
-                  <img
-                    src={toy.pictureURL}
-                    alt={toy.toyName}
-                    className="w-full h-full object-cover group-hover:scale-103 transition-transform duration-500"
-                  />
+                  <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-lg text-slate-600 inline-block mb-2">
+                    {toy.subCategory}
+                  </span>
+
+                  <h3 className="text-base font-bold text-slate-800 line-clamp-1 mb-1">
+                    {toy.toyName}
+                  </h3>
+
+                  <p className="text-toy-teal font-extrabold text-lg mb-4">${toy.price}</p>
                 </div>
 
-                <span className="text-xs font-semibold px-2.5 py-1 bg-slate-100 rounded-lg text-slate-600 inline-block mb-2">
-                  {toy.subCategory}
-                </span>
-
-                <h3 className="text-base font-bold text-slate-800 line-clamp-1 mb-1">
-                  {toy.toyName}
-                </h3>
-
-                <p className="text-toy-teal font-extrabold text-lg mb-4">${toy.price}</p>
+                <button
+                  onClick={() => navigate(`/toys-details/${toy.toyId}`)}
+                  className="w-full text-center text-white bg-toy-primary hover:bg-toy-primary/90 active:scale-95 transition-all py-3 rounded-2xl font-bold shadow-md shadow-toy-primary/10 hover:shadow-lg hover:shadow-toy-primary/20 text-xs cursor-pointer"
+                >
+                  View Product Details
+                </button>
               </div>
-
-              <button
-                onClick={() => navigate(`/toys-details/${toy.toyId}`)}
-                className="w-full text-center text-white bg-toy-primary hover:bg-toy-primary/90 active:scale-95 transition-all py-3 rounded-2xl font-bold shadow-md shadow-toy-primary/10 hover:shadow-lg hover:shadow-toy-primary/20 text-xs cursor-pointer"
-              >
-                View Product Details
-              </button>
-            </div>
-          ))}
-        </div>
-      </main>
+            ))}
+          </div>
+        </main>
+      )}
       <Footer />
     </div>
   );
